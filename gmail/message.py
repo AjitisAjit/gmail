@@ -45,15 +45,9 @@ def parse_email_body(email_message: email.message) -> List:
 
     Parses email body and returns a list
     '''
-    maintype = email_message.get_content_maintype()
     content = []
-
-    if maintype == 'multipart':
-        for part in email_message.get_payload():
-            if part.get_content_maintype() == 'text':
-                content.append(part.get_payload())
-    elif maintype == 'text':
-        content.append(email_message.get_payload())
+    for part in email_message.iter_parts():
+        content.append(part.get_content())
 
     return content
 

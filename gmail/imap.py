@@ -5,6 +5,7 @@ Read emails using imap
 import email
 import contextlib
 import imaplib
+from email import policy
 
 from . import exception, message
 
@@ -120,7 +121,7 @@ def _get_emails_from_ids(connection, ids):
             ))
 
         message_str = data[0][1].decode('utf8')  # Based on the protocol, contains email data
-        email_msg = email.message_from_string(message_str)
+        email_msg = email.message_from_string(message_str, policy=policy.default)
         mail = message.make_email_message(email_msg)
         email_list.append(mail)
 
