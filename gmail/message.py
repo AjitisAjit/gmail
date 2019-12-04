@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from . import exception
 
 
-@dataclass
+@dataclass(eq=True, frozen=True)
 class Message:
     sender: str
     subject: str
